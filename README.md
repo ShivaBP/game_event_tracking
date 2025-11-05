@@ -89,7 +89,30 @@ Event SDK  ->  Flask API  -> Load to Firehose  -> Load to S3  ->  Load to Snowfl
 - Firehose: Batches and stores even json in S3
 - Snowflake: Loads json data into a table using COPY INTO 
 
-**Future improvemnts:**
+***Assumptions:***
+
+1. Local development setup:
+    - The Flask API runs locally on localhost port 8000
+    - The SDK sends HTTP requests to this local API (no deployed endpoint yet)
+
+2. AWS connection
+    - the firehose client is a placeholder and no real AWs connection is made - I have no AWS account XD
+    - For production: AWS credentials and roles will be managed throughm AWS IAM and secret manager
+
+3. Data model
+    - The purchase and install events have a fixed schema 
+    - no nested data, array, protobufs or anything as such that needs to be handled
+    - timestamps are assumed to be arrving in proper format and utc
+
+4. Networking 
+    - No retry logic or failure handling assuming that the api is available and will not fail
+
+5. Security
+    - Skipped authentication for simplicity
+    - For production perhaps add API token authentication or IAM-based auth? several possible alternatives here
+
+
+***Future improvemnts:***
 
 1. Retires and error handling:
     If sending fails, the SDK could retry a few times 
